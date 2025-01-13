@@ -1,0 +1,3 @@
+CACHE_DEFAULT_TTL_IN_SECONDS = 5
+
+INVALID_CREDENTIALS_ERROR_MESSAGE = "Could not validate credentials"

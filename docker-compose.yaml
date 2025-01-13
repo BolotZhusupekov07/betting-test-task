@@ -1,0 +1,88 @@
+version: '3'
+
+x-common: &common
+  restart: always
+  logging:
+    options:
+      max-size: "50m"
+  networks:
+      app_network: {}
+
+
+services:
+  bet_maker_database:
+    <<: *common
+    image: postgres:latest
+    container_name: bet_maker_database
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: bet_maker
+    volumes:
+      - bet_maker_db_data:/var/lib/postgresql/data/
+
+  bet_maker_cache:
+    <<: *common
+    image: redis:latest
+    container_name: bet_maker_cache
+    ports:
+      - "6379:6379"
+
+  bet_maker:
+    <<: *common
+    build: ./bet_maker
+    container_name: bet_maker
+    ports:
+      - "5000:5000"
+    command: /start
+    depends_on:
+      - bet_maker_database
+      - bet_maker_cache
+    environment:
+      ENVIRONMENT: dev
+      DB_USER: db_user
+      DB_PASSWORD: db_password
+      DB_TITLE: bet_maker
+      DB_HOST: bet_maker_database
+      DB_PORT: 5432
+      REDIS_HOST: bet_maker_cache
+      REDIS_PORT: 6379
+
+  line_provider_database:
+    <<: *common
+    image: postgres:latest
+    container_name: line_provider_database
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: line_provider
+    volumes:
+      - line_provider_db_data:/var/lib/postgresql/data/
+
+  line_provider:
+    <<: *common
+    build: ./line_provider
+    container_name: line_provider
+    ports:
+      - "8000:8000"
+    command: /start
+    depends_on:
+      - line_provider_database
+    environment:
+      ENVIRONMENT: dev
+      DB_USER: db_user
+      DB_PASSWORD: db_password
+      DB_TITLE: line_provider
+      DB_HOST: line_provider_database
+      DB_PORT: 5432
+
+volumes:
+  bet_maker_db_data:
+  line_provider_db_data:
+
+networks:
+  app_network:
