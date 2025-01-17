@@ -6,8 +6,30 @@ Bet-Maker and Line-Provider Services
 2.  **Bet-Maker**: Allows users to place bets on events fetched from the Line-Provider.
 
 
+## Usage
+
+Project Language: Python 3.12.3
+
+Project Framework: FastAPI 0.110.1
+
+
+### Running Server
+```bash
+docker compose up --build
+```
+
+### Running Tests in Bet-Maker
+```bash
+
+cd bet-maker/
+docker compose -f docker-compose.unittest.yaml up --build --abort-on-container-exit
+```
+
+
 Line-Provider Service
 ---------------------
+
+![Line provider docs](screenshots/line_provider.png)
 
 ### Domain - http://localhost:8000/
 ### Docs - http://localhost:8000/docs
@@ -33,6 +55,7 @@ Line-Provider Service
 
 Bet-Maker Service
 -----------------
+![Bet maker docs](screenshots/bet_maker.png)
 
 
 ### Domain - http://localhost:5000/
@@ -80,7 +103,7 @@ Deployment and Infrastructure
 -----------------------------
 
 *   Both services are built using **FastAPI** with **Python 3.12.3**.
-*   Fully asynchronous operations ensure efficiency.
+*   Communication between services is fully asynchronous.
 *   Services and associated infrastructure are **dockerized** and launched via **Docker Compose**.
 
 Additional Notes
@@ -90,25 +113,3 @@ Additional Notes
 *   **Enhancements**:
     *   Dynamic interaction between services.
     *   Support for caching and efficient validation.
-
-
-
-
-## Info
-
-Project Language: Python 3.12.3
-
-Project Framework: FastAPI 0.110.1
-
-
-### Running Server
-```bash
-docker compose up --build
-```
-
-### Running Tests in Bet-Maker
-```bash
-
-cd bet-maker/
-docker compose -f docker-compose.unittest.yaml up --build --abort-on-container-exit
-

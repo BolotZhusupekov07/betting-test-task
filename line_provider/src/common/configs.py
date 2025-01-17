@@ -33,7 +33,7 @@ class DBSettings(BaseSettings):
 
 
 class Settings(BaseSettings):
-    project_name: str = "betting"
+    project_name: str = "Line provider"
 
     backend_cors_origins: list[str] = ["*"]
 
