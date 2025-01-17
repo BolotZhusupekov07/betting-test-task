@@ -9,8 +9,6 @@ Bet-Maker and Line-Provider Services
 Line-Provider Service
 ---------------------
 
-The **Line-Provider Service** manages the lifecycle of events available for betting. It provides details such as the unique event identifier, betting odds, deadlines, and event status.
-
 ### Domain - http://localhost:8000/
 ### Docs - http://localhost:8000/docs
 
@@ -18,7 +16,7 @@ The **Line-Provider Service** manages the lifecycle of events available for bett
 
 *   **Event ID**: A unique string or number identifying the event.
 
-*   **Betting Odds**: Positive decimal with two digits of precision.
+*   **Coefficient**: Positive decimal with two digits of precision.
 
 *   **Deadline**: A timestamp indicating the cutoff time for bets.
 
@@ -35,8 +33,6 @@ The **Line-Provider Service** manages the lifecycle of events available for bett
 
 Bet-Maker Service
 -----------------
-
-The **Bet-Maker Service** handles user bets on events provided by the Line-Provider.
 
 
 ### Domain - http://localhost:5000/
